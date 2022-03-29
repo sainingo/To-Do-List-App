@@ -19,7 +19,7 @@ const todoContainer = tasks.map((task) => `
     <ul>
     <li><input type="checkbox"></li>
     <li>${task.description}</li>
-    <li>&#8942;</li>
+    <li class="refresh-icon" >&#8942;</li>
     </ul>
     <hr>
     `).join('');
