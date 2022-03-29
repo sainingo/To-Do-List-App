@@ -52,6 +52,13 @@ hr {
   padding: 0 5px;
 }
 
+.input-text > input {
+  border: none;
+  margin-left: 10px;
+  font-style: italic;
+  font-size: 18px;
+}
+
 .todo-list > ul li input {
   margin-left: 0;
 }
