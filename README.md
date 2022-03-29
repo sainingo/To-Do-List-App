@@ -28,7 +28,9 @@ To run the above project you need to meet the following requirements:
 - git clone <url>
 - cd /dir
 - npm install
-- open the project in vscode ~code .~
+- npm run dev - to spin up local webpack server
+- npm run build - to build webpack
+  
 
 
 # 🤵 Author
