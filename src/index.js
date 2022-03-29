@@ -1,27 +1,34 @@
 import './styles.css';
+import Task from './tasks.js';
 
-const tasks = [
-  {
-    description: 'Practice leetcode algorithms and data structures',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Afterwards set up for codewars algorithms and data structures',
-    completed: false,
-    index: 2,
-  },
-];
+const newTask = new Task();
 
-const todoListContainer = document.querySelector('.todo-list');
+const inputTask = document.querySelector('.input-task');
+const todoList = document.querySelector('.todo-list');
 
-const todoContainer = tasks.map((task) => `
-    <ul>
-    <li><input type="checkbox"></li>
-    <li>${task.description}</li>
-    <li class="refresh-icon" >&#8942;</li>
-    </ul>
-    <hr>
-    `).join('');
+function displayTask() {
+  let template = '';
+  const localData = JSON.parse(localStorage.getItem('tasks'));
+  if (localData !== null) {
+    localData.forEach((task) => {
+      template += `<ul>
+          <li><input type="checkbox"></li>
+          <li>${task}</li>
+          <li>&#8942;</li>
+      </ul>
+      <hr>`;
+      todoList.innerHTML = template;
+    });
+  }
+}
 
-todoListContainer.innerHTML = todoContainer;
+inputTask.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    const inputValue = inputTask.value;
+    inputTask.value = '';
+    newTask.addNewTask(inputValue);
+  }
+  displayTask();
+});
+
+displayTask();

@@ -57,10 +57,16 @@ hr {
   margin-left: 10px;
   font-style: italic;
   font-size: 18px;
+  caret-color: auto;
+  width: 90%;
 }
 
 .todo-list > ul li input {
   margin-left: 0;
+}
+
+.input-text > input:focus {
+  outline: 0;
 }
 
 .todo-list > ul li:last-child {
