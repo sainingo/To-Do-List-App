@@ -22,6 +22,6 @@ const todoContainer = tasks.map((task) => `
     <li>&#8942;</li>
     </ul>
     <hr>
-    `);
+    `).join('');
 
 todoListContainer.innerHTML = todoContainer;
