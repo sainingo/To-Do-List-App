@@ -23,7 +23,7 @@ const showEditInputs = (liElement) => {
   liElement.appendChild(input);
   input.focus();
 };
-// works with toggleComplete
+
 function editTask() {
   todoList.addEventListener('click', () => {
     const editEl = document.querySelectorAll('.edit-task');
@@ -54,6 +54,8 @@ function editText() {
 
 function updateText() {
   const editInput = document.querySelector('.edit-input');
+  const localData = JSON.parse(localStorage.getItem('tasks'));
+
   if (!editInput) {
     return;
   }
@@ -61,6 +63,10 @@ function updateText() {
   if (newText !== '') {
     const liInput = editInput.parentElement;
     liInput.textContent = newText;
+    localData.forEach((data) => {
+      data.text = newText;
+      localStorage.setItem('tasks', JSON.stringify(localData));
+    });
   }
   editInput.remove();
 }
@@ -70,7 +76,6 @@ function keyPress() {
     const editEl = document.querySelectorAll('.edit-task');
     editEl.forEach((edit) => {
       edit.addEventListener('keypress', (e) => {
-        //  e.stopPropagation();
         if (e.target.tagName === 'INPUT' && e.target.type === 'text' && e.key === 'Enter') {
           updateText();
         }

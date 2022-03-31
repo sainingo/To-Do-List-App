@@ -9,8 +9,13 @@ const inputTask = document.querySelector('.input-task');
 function updateUi(id) {
   const localData = JSON.parse(localStorage.getItem('tasks'));
   if (localData !== null) {
-    const deleteIndex = localData.findIndex((item) => item.index === id);
-    localData.splice(deleteIndex, 1);
+    localData.forEach((data) => {
+      /* eslint-disable */
+      if (data.index == id) {
+        const newarr = localData.indexOf(data);
+        localData.splice(newarr, 1);
+      }
+    });
   }
   newTask.tasks = localData;
   localStorage.setItem('tasks', JSON.stringify(localData));

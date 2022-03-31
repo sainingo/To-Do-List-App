@@ -89,6 +89,7 @@ div ul li:last-child {
 .edit-task.active {
   background-color: rgb(209, 202, 202);
   opacity: 0.6;
+  padding-top: 4px;
 }
 
 .delete-icon {
