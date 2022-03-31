@@ -1,34 +1,46 @@
 import './styles.css';
 import Task from './tasks.js';
+import displayTask from './displayTask.js';
+import { editTask, editText, keyPress } from './editTask.js';
 
 const newTask = new Task();
-
 const inputTask = document.querySelector('.input-task');
-const todoList = document.querySelector('.todo-list');
 
-function displayTask() {
-  let template = '';
+function updateUi(id) {
   const localData = JSON.parse(localStorage.getItem('tasks'));
   if (localData !== null) {
-    localData.forEach((task) => {
-      template += `<ul>
-          <li><input type="checkbox"></li>
-          <li>${task}</li>
-          <li>&#8942;</li>
-      </ul>
-      <hr>`;
-      todoList.innerHTML = template;
-    });
+    const deleteIndex = localData.findIndex((item) => item.index === id);
+    localData.splice(deleteIndex, 1);
   }
+  newTask.tasks = localData;
+  localStorage.setItem('tasks', JSON.stringify(localData));
 }
 
 inputTask.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
-    const inputValue = inputTask.value;
-    inputTask.value = '';
-    newTask.addNewTask(inputValue);
+    const inputValue = inputTask.value.trim();
+    if (inputValue !== '') {
+      newTask.addNewTask(inputValue);
+      inputTask.value = '';
+      inputTask.focus();
+    }
+    displayTask();
+    window.location.reload();
   }
-  displayTask();
 });
 
 displayTask();
+editTask();
+editText();
+keyPress();
+
+const removeBtn = document.querySelectorAll('.remove-btn');
+
+removeBtn.forEach((removeButton) => {
+  removeButton.addEventListener('click', (e) => {
+    const removedElement = e.target.parentNode.parentNode.parentNode.parentNode
+      .removeChild(e.target.parentElement.parentElement.parentElement);
+    const removedIndex = removedElement.dataset.key;
+    updateUi(removedIndex);
+  });
+});
