@@ -5,11 +5,10 @@ const runComplete = (inputEl) => {
   const localData = JSON.parse(localStorage.getItem('tasks'));
   localData.forEach((task) => {
     if (inputEl.checked !== false) {
-      /* eslint-disable */
-      if (inputEl.id == task.index) {
+      if (Number(inputEl.id) === Number(task.index)) {
         task.completed = true;
-      }   
-    }else {
+      }
+    } else {
       task.completed = false;
     }
     localStorage.setItem('tasks', JSON.stringify(localData));
@@ -25,7 +24,6 @@ const toggleComplete = (inputElement) => {
     inputElement.parentElement.parentElement.parentElement.classList.add('active');
   }
 };
-
 
 const showEditInputs = (liElement) => {
   const editInput = document.querySelector('.edit-input');
@@ -55,13 +53,12 @@ function editTask() {
     });
   });
 }
-  clearBtn.addEventListener('click', () => {
-    const localData = JSON.parse(localStorage.getItem('tasks'));
-    const newData = localData.filter((data) => !data.completed)
-    localStorage.setItem('tasks', JSON.stringify(newData));
-    window.location.reload();
-  })
-
+clearBtn.addEventListener('click', () => {
+  const localData = JSON.parse(localStorage.getItem('tasks'));
+  const newData = localData.filter((data) => !data.completed);
+  localStorage.setItem('tasks', JSON.stringify(newData));
+  window.location.reload();
+});
 
 function editText() {
   todoList.addEventListener('click', () => {

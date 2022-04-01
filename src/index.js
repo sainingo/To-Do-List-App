@@ -10,8 +10,7 @@ function updateUi(id) {
   const localData = JSON.parse(localStorage.getItem('tasks'));
   if (localData !== null) {
     localData.forEach((data) => {
-      /* eslint-disable */
-      if (data.index == id) {
+      if (data.index === Number(id)) {
         const newarr = localData.indexOf(data);
         localData.splice(newarr, 1);
       }
