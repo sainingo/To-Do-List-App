@@ -1,4 +1,19 @@
 const todoList = document.querySelector('.todo-list');
+const clearBtn = document.querySelector('.clear-btn');
+
+const runComplete = (inputEl) => {
+  const localData = JSON.parse(localStorage.getItem('tasks'));
+  localData.forEach((task) => {
+    if (inputEl.checked !== false) {
+      if (Number(inputEl.id) === Number(task.index)) {
+        task.completed = true;
+      }
+    } else {
+      task.completed = false;
+    }
+    localStorage.setItem('tasks', JSON.stringify(localData));
+  });
+};
 
 const toggleComplete = (inputElement) => {
   if (inputElement.checked === false) {
@@ -32,11 +47,18 @@ function editTask() {
         e.stopPropagation();
         if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
           toggleComplete(e.target);
+          runComplete(e.target);
         }
       });
     });
   });
 }
+clearBtn.addEventListener('click', () => {
+  const localData = JSON.parse(localStorage.getItem('tasks'));
+  const newData = localData.filter((data) => !data.completed);
+  localStorage.setItem('tasks', JSON.stringify(newData));
+  window.location.reload();
+});
 
 function editText() {
   todoList.addEventListener('click', () => {
