@@ -1,27 +1,51 @@
 import './styles.css';
+import Task from './tasks.js';
+import displayTask from './displayTask.js';
+import { editTask, editText, keyPress } from './editTask.js';
 
-const tasks = [
-  {
-    description: 'Practice leetcode algorithms and data structures',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Afterwards set up for codewars algorithms and data structures',
-    completed: false,
-    index: 2,
-  },
-];
+const newTask = new Task();
+const inputTask = document.querySelector('.input-task');
 
-const todoListContainer = document.querySelector('.todo-list');
+function updateUi(id) {
+  const localData = JSON.parse(localStorage.getItem('tasks'));
+  if (localData !== null) {
+    localData.forEach((data) => {
+      /* eslint-disable */
+      if (data.index == id) {
+        const newarr = localData.indexOf(data);
+        localData.splice(newarr, 1);
+      }
+    });
+  }
+  newTask.tasks = localData;
+  localStorage.setItem('tasks', JSON.stringify(localData));
+}
 
-const todoContainer = tasks.map((task) => `
-    <ul>
-    <li><input type="checkbox"></li>
-    <li>${task.description}</li>
-    <li class="refresh-icon" >&#8942;</li>
-    </ul>
-    <hr>
-    `).join('');
+inputTask.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    const inputValue = inputTask.value.trim();
+    if (inputValue !== '') {
+      newTask.addNewTask(inputValue);
+      inputTask.value = '';
+      inputTask.focus();
+    }
+    displayTask();
+    window.location.reload();
+  }
+});
 
-todoListContainer.innerHTML = todoContainer;
+displayTask();
+editTask();
+editText();
+keyPress();
+
+const removeBtn = document.querySelectorAll('.remove-btn');
+
+removeBtn.forEach((removeButton) => {
+  removeButton.addEventListener('click', (e) => {
+    const removedElement = e.target.parentNode.parentNode.parentNode.parentNode
+      .removeChild(e.target.parentElement.parentElement.parentElement);
+    const removedIndex = removedElement.dataset.key;
+    updateUi(removedIndex);
+  });
+});
