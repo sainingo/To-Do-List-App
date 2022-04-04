@@ -7,7 +7,7 @@ module.exports = {
     bundle: path.resolve(__dirname, 'src/index.js'),
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/To-Do-List-App',
     filename: '[name].js',
   },
   module: {
