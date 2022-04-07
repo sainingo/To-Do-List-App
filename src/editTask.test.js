@@ -45,5 +45,6 @@ describe('Should test for status and content updates', () => {
   test('Should test edit task function', () => {
     const value = 'Text Value';
     editText(value, 1);
+    expect.any(Function);
   });
 });
