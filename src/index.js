@@ -6,7 +6,7 @@ import { editTask, editText, keyPress } from './editTask.js';
 const newTask = new Task();
 const inputTask = document.querySelector('.input-task');
 
-function updateUi(id) {
+export default function updateUi(id) {
   const localData = JSON.parse(localStorage.getItem('tasks'));
   if (localData !== null) {
     localData.forEach((data) => {
